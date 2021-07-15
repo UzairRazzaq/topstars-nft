@@ -53,7 +53,7 @@ function Home() {
       <div className="d-flex justify-content-center mt-5">
         <h1>Bids</h1>
       </div>
-      <div class="container">
+      <div class="container mb-3">
       <BidsListLoading isLoading={appState.loading} bidNfts={appState.bidnfts} />
       </div>
     </div>

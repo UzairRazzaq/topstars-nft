@@ -6,7 +6,7 @@ import { fuzzySearch } from 'react-select-search';
 const NftState = (props) => {
   //varibales
   // let ids = getAllIds();
-  const [toggleValue, setStatus] = useState("");
+  const [toggleValue, setStatus] = useState(false);
   const [bidPrice, setBidPrice] = useState("");
   const [salePrice, setSalePrice] = useState("");
   const [idd, setIdd] = useState("");
@@ -21,7 +21,6 @@ const NftState = (props) => {
     axios.get('http://localhost:5000/product')
     .then(resp => {
       const data = resp['data'];
-        console.log(resp['data']);
         const allIds = [];
         data.forEach((element) => { allIds.push({ name: element._id, value: element._id }) } )
         setAppState({ loading: false, ids: allIds });
@@ -32,31 +31,36 @@ const NftState = (props) => {
   function toggle() {
     if (toggleValue) {
       setStatus(false);
+      setBidPrice(0);
     } else {
       setStatus(true);
+      setSalePrice(0);
     }
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    // for bid price
-    if(toggleValue) {
-      if(bidPrice && idd){
-        console.log(bidPrice);
-        console.log(idd);
-        window.alert("Form submitted");
-      } else {
-        window.alert("Form not submitted");
-      }
-    } 
-    // for sale price 
-    else {
-      if(salePrice && idd){
-        console.log(salePrice);
-        console.log(idd);
-        window.alert("Form submitted");
-      } else {
-        window.alert("Form not submitted");
+
+    if (idd) {
+      // for bid price
+      if(toggleValue) {
+        if(bidPrice && bidPrice !== 0){
+          console.log(bidPrice);
+          console.log(idd);
+          window.alert("Form submitted");
+        } else {
+          window.alert("Form not submitted");
+        }
+      } 
+      // for sale price 
+      else {
+        if(salePrice && salePrice !== 0) {
+          console.log(salePrice);
+          console.log(idd);
+          window.alert("Form submitted");
+        } else {
+          window.alert("Form not submitted");
+        }
       }
     }
   }
@@ -81,7 +85,7 @@ const NftState = (props) => {
         {toggleValue &&
           <label>
             Bid Price: 
-            <input className="mx-2" type="number" id="bidPrice" onChange={ (event) => setBidPrice(event.target.value)} />
+            <input className="mx-2" type="number" id="bidPrice" min="0.001" step="0.001" onChange={ (event) => setBidPrice(event.target.value)} />
             ETH
           </label>
         }
@@ -89,7 +93,7 @@ const NftState = (props) => {
         {!toggleValue &&
           <label>
             Sale Price: 
-            <input className="mx-2" type="number" id="salePrice" onChange={ (event) => setSalePrice(event.target.value)} />
+            <input className="mx-2" type="number" id="salePrice" min="0.001" step="0.001" onChange={ (event) => setSalePrice(event.target.value)} />
             ETH
           </label>
         }
