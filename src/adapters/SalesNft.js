@@ -4,7 +4,6 @@ import ReactPlayer from 'react-player';
 const SalesNft = (props) => {
   const { SalesNfts } = props;
   if (!SalesNfts || SalesNfts.length === 0) {
-    console.log("123" + SalesNfts);
     return <p>No Nfts, sorry</p>;
   }
 
