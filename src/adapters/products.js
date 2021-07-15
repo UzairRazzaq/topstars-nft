@@ -22,4 +22,20 @@ function getUserById(id) {
   return dat[id-1];
 }
 
-export { getSalesNft, getUserById, getBidNft };
+function getAllIds() {
+  let dat = [];
+  data.forEach((element) => { dat.push({ name: element.id, value: element.id }) } )
+
+  return dat;
+}
+
+function toggle() {
+  var checkBox = document.getElementById("myCheck");
+  if (checkBox.checked === true){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export { getSalesNft, getUserById, getBidNft, getAllIds, toggle };

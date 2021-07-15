@@ -1,6 +1,8 @@
 // import image1 from '../../public/assets/pic1.jpeg';
 import React from 'react';
 import Countdown from 'react-countdown';
+import ReactPlayer from 'react-player';
+import timeHelper from '../utils/timeHelper'
 
 const renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
@@ -17,18 +19,30 @@ const BidsNft = (props) => {
   }
 
   return (
-    <div class="row mt-75 mb-5">
+    <div className="row">
           {bidNfts.map((nft) => (
-            <div class="col-sm mt-3">
-              <div class="card w-o h-100 m-auto">
-                <img class="card-img-top h-50" src={nft.mediaLocation}  alt="Card cap"/>
-                <div class="card-body">
-                  <h5 class="card-title"><a href={`/product/${nft._id}`} class="color-black">{nft.name}</a></h5>
-                  <p class="card-text">{nft.description}</p>
-                  <div class="d-flex justify-content-between">
-                    <button class="btn btn-primary">{nft.price}</button>
-                    <span class="btn btn-info">
-                      <Countdown date={Date.now() + (nft.time*60000)} renderer={renderer} ></Countdown>
+            <div className="col-sm mt-3" key={nft._id}>
+              <div className="card w-o h-550 m-auto">
+                { nft.type === 'pic' &&
+                  <img className="card-img-top h-60" src={nft.mediaLocation}  alt={nft.name}/>
+                }
+
+                { nft.type === 'vid'  &&
+                  <ReactPlayer className="card-img-top h-60" url={nft.mediaLocation}
+                    controls = {false}
+                    muted = {true}
+                    width = {'20.9rem'}
+                    playing = {true}
+                    loop = {true}
+                  />
+                }
+                <div className="card-body">
+                  <h5 className="card-title"><a href={`/product/${nft._id}`} className="color-black">{nft.name}</a></h5>
+                  <p className="card-text">{nft.description}</p>
+                  <div className="d-flex justify-content-between">
+                    <button className="btn btn-primary">{nft.price}</button>
+                    <span className="btn btn-info">
+                      <Countdown date={timeHelper(nft.time)} renderer={renderer} ></Countdown>
                     </span>
                   </div>
                 </div>

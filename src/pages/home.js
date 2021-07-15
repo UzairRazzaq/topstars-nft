@@ -43,19 +43,15 @@ function Home() {
 
 
     return (
-    <div>
-      <div class="d-flex justify-content-center pad-75">
-        <h1>
-          Sales
-        </h1>
-      </div>
+    <div className="mt-12">
+      <div className="d-flex justify-content-center">
+    <h1>Sales</h1>
+    </div>
       <div class="container">
       <SalesListLoading isLoading={appState.loading} SalesNfts={appState.Salesnfts} />  
       </div>
-      <div class="d-flex justify-content-center pad-75">
-        <h1>
-          Bids
-        </h1>
+      <div className="d-flex justify-content-center mt-5">
+        <h1>Bids</h1>
       </div>
       <div class="container">
       <BidsListLoading isLoading={appState.loading} bidNfts={appState.bidnfts} />
